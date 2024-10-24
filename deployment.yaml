@@ -1,0 +1,26 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: pntasg-deployment
+  labels:
+    app: pntasg
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: pntasg
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 1
+  template:
+    metadata:
+      labels:
+        app: pntasg
+    spec:
+      containers:
+      - name: pntasg-container
+        image: ghostvoz/asg1pnt:v0.0
+        ports:
+        - containerPort: 8080
